@@ -78,46 +78,98 @@ namespace WebApi.Controllers
                         }
 
                         command.Connection = connection;
-                        command.CommandText = "INSERT INTO reserva (CPF,NOME,PASSAGEM,QTD_PASSAGEM,ORIGEM_PASSAGEM,DESTINO_PASSAGEM,INICIO_PASSAGEM,FIM_PASSAGEM,VALOR_PASSAGEM,HOTEL,QTD_HOTEL,CIDADE_HOTEL,INICIO_HOTEL,FIM_HOTEL,"
-                            + "VALOR_HOTEL,CRUZEIRO,QTD_CRUZEIRO,ORIGEM_CRUZEIRO,DESTINO_CRUZEIRO,INICIO_CRUZEIRO,FIM_CRUZEIRO,VALOR_CRUZEIRO,SEGURO,INICIO_SEGURO,FIM_SEGURO,VALOR_SEGURO,VALOR_TOTAL) VALUES ("
-                            +"'" + reserva.Cpf + "',"
-                            +"'" + reserva.Nome + "',"
-                            +"'" + reserva.Passagem + "',"
-                            +"'" + reserva.Qtd_passageiros_passagem + "',"
-                            +"'" + reserva.Origem_passagem + "',"
-                            +"'" + reserva.Destino_passagem + "',"
-                            + "convert(datetime,nullif('" + Convert.ToString(Data_ida_passagem) + "',''),103),"
-                            + "convert(datetime,nullif('" + Convert.ToString(Data_volta_passagem) + "',''),103),"
-                            +"'" + Convert.ToString(0) + "',"
-                            +"'" + reserva.Hotel + "',"
-                            +"'" + reserva.Qtd_hospedes_hotel + "',"
-                            +"'" + reserva.Cidade_hotel + "',"
-
-                            + "convert(datetime,nullif('" + Convert.ToString(Data_entrada_hotel) + "',''),103),"
-                            + "convert(datetime,nullif('" + Convert.ToString(Data_saida_hotel) + "',''),103),"
-
-                            + "'" + Convert.ToString(0) + "',"
-                            +"'" + reserva.Cruzeiro + "',"
-                            +"'" + reserva.Qtd_passageiros_cruzeiro + "',"
-                            +"'" + reserva.Origem_cruzeiro + "',"
-                            +"'" + reserva.Destino_cruzeiro + "',"
-
-                            + "convert(datetime,nullif('" + Convert.ToString(Data_inicio_cruzeiro) + "',''),103),"
-                            + "convert(datetime,nullif('" + Convert.ToString(Data_fim_cruzeiro) + "',''),103),"
 
 
-                            + "'" + Convert.ToString(0) + "',"
-                            +"'" + reserva.Seguro + "',"
+                        
+                        listaReservas.Clear();
+                        listaReservasCarrega();
+                        Reserva reservabusca = listaReservas.Where(n => n.Cpf == reserva.Cpf)
+                                                            .Select(n => n)
+                                                            .FirstOrDefault();
 
-                            + "convert(datetime,nullif('" + Convert.ToString(Data_inicio_seguro) + "',''),103),"
-                            + "convert(datetime,nullif('" + Convert.ToString(Data_fim_seguro) + "',''),103),"
+                        if (reservabusca != null)
+                        {
+                            //Update
+                            command.CommandText = "update reserva set " +
+                                " NOME = " + "'" + reserva.Nome + "'," +
+                                " PASSAGEM = " + "'" + reserva.Passagem + "'," +
+                                " QTD_PASSAGEM = " + "'" + reserva.Qtd_passageiros_passagem + "'," +
+                                " ORIGEM_PASSAGEM = " + "'" + reserva.Origem_passagem + "'," +
+                                " DESTINO_PASSAGEM = " + "'" + reserva.Destino_passagem + "'," +
+                                " INICIO_PASSAGEM = " + "convert(datetime,nullif('" + Convert.ToString(Data_ida_passagem) + "',''),103)," + 
+                                " FIM_PASSAGEM = " + "convert(datetime,nullif('" + Convert.ToString(Data_volta_passagem) + "',''),103)," +
+                                
+                                " HOTEL = " + "'" + reserva.Hotel + "'," +
+                                " QTD_HOTEL = " + "'" + reserva.Qtd_hospedes_hotel + "'," +
+                                " CIDADE_HOTEL = " + "'" + reserva.Cidade_hotel + "'," +
+                                " INICIO_HOTEL = " + "convert(datetime,nullif('" + Convert.ToString(Data_entrada_hotel) + "',''),103)," + 
+                                " FIM_HOTEL = " + "convert(datetime,nullif('" + Convert.ToString(Data_saida_hotel) + "',''),103)," + 
+                                
+                                
+                                " CRUZEIRO = " + "'" + reserva.Cruzeiro+ "'," +
+                                " QTD_CRUZEIRO = " + "'" + reserva.Qtd_passageiros_cruzeiro+ "'," +
+                                " ORIGEM_CRUZEIRO = " + "'" + reserva.Origem_cruzeiro + "'," +
+                                " DESTINO_CRUZEIRO = " + "'" + reserva.Destino_cruzeiro + "'," +
+                                " INICIO_CRUZEIRO = " + "convert(datetime,nullif('" + Convert.ToString(Data_inicio_cruzeiro) + "',''),103)," +
+                                " FIM_CRUZEIRO = " + "convert(datetime,nullif('" + Convert.ToString(Data_fim_cruzeiro) + "',''),103)," + 
+                                
+                                " SEGURO = " + "'" + reserva.Seguro + "'," +
+                                " INICIO_SEGURO = " + "convert(datetime,nullif('" + Convert.ToString(Data_inicio_seguro) + "',''),103)," +
+                                " FIM_SEGURO = " + "convert(datetime,nullif('" + Convert.ToString(Data_fim_seguro) + "',''),103)" + 
+                                
+                                
+                                " FROM reserva where cpf = "
+                                + "'" + reserva.Cpf + "'";
 
-
-                            + "'" + Convert.ToString(0) + "',"
-                            + "'" + Convert.ToString(0) + "'"
                             
-                         +") ";
+                        }
+                        else
+                        {
+                            //Insert
 
+
+
+                            command.CommandText = "INSERT INTO reserva (CPF,NOME,PASSAGEM,QTD_PASSAGEM,ORIGEM_PASSAGEM,DESTINO_PASSAGEM,INICIO_PASSAGEM,FIM_PASSAGEM,VALOR_PASSAGEM,HOTEL,QTD_HOTEL,CIDADE_HOTEL,INICIO_HOTEL,FIM_HOTEL,"
+                                + "VALOR_HOTEL,CRUZEIRO,QTD_CRUZEIRO,ORIGEM_CRUZEIRO,DESTINO_CRUZEIRO,INICIO_CRUZEIRO,FIM_CRUZEIRO,VALOR_CRUZEIRO,SEGURO,INICIO_SEGURO,FIM_SEGURO,VALOR_SEGURO,VALOR_TOTAL) VALUES ("
+                                + "replace ( replace(  '" + reserva.Cpf + "' , '.',''), '-','') ,"
+                                + "'" + reserva.Nome + "',"
+                                + "'" + reserva.Passagem + "',"
+                                + "'" + reserva.Qtd_passageiros_passagem + "',"
+                                + "'" + reserva.Origem_passagem + "',"
+                                + "'" + reserva.Destino_passagem + "',"
+                                + "convert(datetime,nullif('" + Convert.ToString(Data_ida_passagem) + "',''),103),"
+                                + "convert(datetime,nullif('" + Convert.ToString(Data_volta_passagem) + "',''),103),"
+                                + "'" + Convert.ToString(0) + "',"
+                                + "'" + reserva.Hotel + "',"
+                                + "'" + reserva.Qtd_hospedes_hotel + "',"
+                                + "'" + reserva.Cidade_hotel + "',"
+
+                                + "convert(datetime,nullif('" + Convert.ToString(Data_entrada_hotel) + "',''),103),"
+                                + "convert(datetime,nullif('" + Convert.ToString(Data_saida_hotel) + "',''),103),"
+
+                                + "'" + Convert.ToString(0) + "',"
+                                + "'" + reserva.Cruzeiro + "',"
+                                + "'" + reserva.Qtd_passageiros_cruzeiro + "',"
+                                + "'" + reserva.Origem_cruzeiro + "',"
+                                + "'" + reserva.Destino_cruzeiro + "',"
+
+                                + "convert(datetime,nullif('" + Convert.ToString(Data_inicio_cruzeiro) + "',''),103),"
+                                + "convert(datetime,nullif('" + Convert.ToString(Data_fim_cruzeiro) + "',''),103),"
+
+
+                                + "'" + Convert.ToString(0) + "',"
+                                + "'" + reserva.Seguro + "',"
+
+                                + "convert(datetime,nullif('" + Convert.ToString(Data_inicio_seguro) + "',''),103),"
+                                + "convert(datetime,nullif('" + Convert.ToString(Data_fim_seguro) + "',''),103),"
+
+
+                                + "'" + Convert.ToString(0) + "',"
+                                + "'" + Convert.ToString(0) + "'"
+
+                             + ") ";
+
+                        }
 
                         erro = command.CommandText;
 
@@ -283,6 +335,56 @@ namespace WebApi.Controllers
                 
 
             }
+
+        }
+
+        [AcceptVerbs("GET")]
+        [Route("ExcluirReservaPorCPF/{cpf}")]
+        public string ExcluirReservaPorCpf(string cpf)
+        {
+
+            string erro = "";
+
+
+            try
+            {
+
+
+                using (System.Data.OleDb.OleDbConnection connection = new System.Data.OleDb.OleDbConnection())
+                {
+                    connection.ConnectionString = ConnectionStringCadastro;
+                    using (System.Data.OleDb.OleDbCommand command = new System.Data.OleDb.OleDbCommand())
+                    {
+
+
+
+                        command.Connection = connection;
+                        command.CommandText = "delete from reserva where cpf = '" + cpf + "'";
+
+
+
+                        erro = command.CommandText;
+
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        listaReservas.Clear();
+                        listaReservasCarrega();
+
+                        return "Reserva excluída com sucesso!";
+                    }
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                listaReservas.Clear();
+                listaReservasCarrega();
+
+                return erro + "" + ex.Message;
+            }
+
 
         }
 

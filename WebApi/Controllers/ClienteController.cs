@@ -42,18 +42,51 @@ namespace WebApi.Controllers
                        
 
                         command.Connection = connection;
-                        command.CommandText = "INSERT INTO cliente (NOME,CPF,CEP,ENDERECO,NUMERO,BAIRRO,CIDADE,ESTADO) VALUES ("
-                            + "'" + cliente.Nome+ "',"
-                            + "'" + cliente.Cpf+ "',"
-                            + "'" + cliente.Cep+ "',"
+
+                        listaClientes.Clear();
+                        listaClientesCarrega();
+                        Cliente clientebusca = listaClientes.Where(n => n.Cpf == cliente.Cpf)
+                                                            .Select(n => n)
+                                                            .FirstOrDefault();
+
+                        if (clientebusca != null)
+                        {
+                            //Update
+                            command.CommandText = "update cliente " +
+                                "set NOME = "+ "'" + cliente.Nome + "'," +
+                                " CEP = "+ "'" + cliente.Cep + "'," +
+                                " ENDERECO = "+ "'" + cliente.Endereco + "'," +
+                                " NUMERO = "+ "'" + cliente.Numero + "'," +
+                                " BAIRRO = "+ "'" + cliente.Bairro + "'," +
+                                " CIDADE = "+ "'" + cliente.Cidade + "'," +
+                                " ESTADO = "+ "'" + cliente.Estado + "'" +
+                                " FROM cliente where cpf = "
+                                + "'" + cliente.Cpf + "'";
+                                
+                                
+                                
+                        }
+                        else
+                        { 
+                            //Insert
+                            command.CommandText = "INSERT INTO cliente (NOME,CPF,CEP,ENDERECO,NUMERO,BAIRRO,CIDADE,ESTADO) VALUES ("
+                            + "'" + cliente.Nome + "',"
+                            + "'" + cliente.Cpf + "',"
+                            + "'" + cliente.Cep + "',"
                             + "'" + cliente.Endereco + "',"
                             + "'" + cliente.Numero + "',"
                             + "'" + cliente.Bairro + "',"
-                            + "'" + cliente.Cidade+ "',"
+                            + "'" + cliente.Cidade + "',"
                             + "'" + cliente.Estado + "'"
-                            
+
 
                          + ") ";
+                        }
+
+
+
+                        
+                        
 
 
                         erro = command.CommandText;
@@ -145,6 +178,57 @@ namespace WebApi.Controllers
                                                 .FirstOrDefault();
 
             return cliente;
+        }
+
+        [AcceptVerbs("GET")]
+        [Route("ExcluirClientePorCPF/{cpf}")]
+        public string ExcluirClientePorCpf(string cpf)
+        {
+
+            string erro = "";
+
+
+            try
+            {
+
+
+                using (System.Data.OleDb.OleDbConnection connection = new System.Data.OleDb.OleDbConnection())
+                {
+                    connection.ConnectionString = ConnectionStringCadastro;
+                    using (System.Data.OleDb.OleDbCommand command = new System.Data.OleDb.OleDbCommand())
+                    {
+
+
+
+                        command.Connection = connection;
+                        command.CommandText = "delete from cliente where cpf = '" + cpf + "'";
+                            
+
+
+                        erro = command.CommandText;
+
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                        listaClientes.Clear();
+                        listaClientesCarrega();
+
+                        return "Cliente excluído com sucesso!";
+                    }
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                listaClientes.Clear();
+                listaClientesCarrega();
+
+                return erro + "" + ex.Message;
+            }
+
+            
+            
         }
 
 

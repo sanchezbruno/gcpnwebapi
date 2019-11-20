@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\aspnet-WebApi-20191105105138.mdf;Initial Catalog=aspnet-WebApi-20191105105138;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\bruno\.sanchez\\Google\ Drive\\Doutorado\\SIN5009\ -\ Gestão\ Computacional\ de\ Processos\ de\ Negócio\\WebAPI\\WebApi\\WebApi\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="gcpnAgenciaConnectionString-Web.config Connection String" description="gcpnAgenciaConnectionString Connection String used in web.config by the application to access the database." defaultValue="Data Source=sqlsanchezbruno.database.windows.net;Initial Catalog=gcpnAgencia;User ID=agencia;Password=&quot;6jQP;,#&gt;7fv7&amp;x#D&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\bruno\.sanchez\\Google\ Drive\\Doutorado\\SIN5009\ -\ Gestão\ Computacional\ de\ Processos\ de\ Negócio\\WebAPI\\WebApi\\WebApi\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='gcpnAgenciaConnectionString']/@connectionString" />
+  </parameter>
+  <parameter name="gcpnAgenciaConnectionStringCadastro-Web.config Connection String" description="gcpnAgenciaConnectionStringCadastro Connection String used in web.config by the application to access the database." defaultValue="Data Source=sqlsanchezbruno.database.windows.net;Initial Catalog=gcpnAgencia;Provider=SQLOLEDB;User ID=agencia;Password=&quot;6jQP;,#&gt;7fv7&amp;x#D&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\bruno\.sanchez\\Google\ Drive\\Doutorado\\SIN5009\ -\ Gestão\ Computacional\ de\ Processos\ de\ Negócio\\WebAPI\\WebApi\\WebApi\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='gcpnAgenciaConnectionStringCadastro']/@connectionString" />
+  </parameter>
+</parameters>

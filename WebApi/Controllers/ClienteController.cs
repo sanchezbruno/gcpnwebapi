@@ -24,7 +24,7 @@ namespace WebApi.Controllers
 
         [AcceptVerbs("POST")]
         [Route("CadastrarCliente")]
-        public string CadastrarCliente(Cliente cliente)
+        public Cliente CadastrarCliente(Cliente cliente)
         {
             string erro = "";
             
@@ -94,7 +94,7 @@ namespace WebApi.Controllers
                         connection.Open();
                         command.ExecuteNonQuery();
 
-                        return "Cliente cadastrado com sucesso!";
+                        return cliente;
                     }
                 }
 
@@ -103,7 +103,20 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return erro + "" + ex.Message;
+                cliente = new Cliente(
+                            "",
+                            "",
+
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            erro + " " + ex.Message
+                            );
+
+                return cliente;
             }
 
 
@@ -151,7 +164,8 @@ namespace WebApi.Controllers
                             item["NUMERO"].ToString(),
                             item["BAIRRO"].ToString(),
                             item["CIDADE"].ToString(),
-                            item["ESTADO"].ToString()
+                            item["ESTADO"].ToString(),
+                            ""
 
                             );
                         listaClientes.Add(cliente);
@@ -176,6 +190,22 @@ namespace WebApi.Controllers
             Cliente cliente = listaClientes.Where(n => n.Cpf == cpf)
                                                 .Select(n => n)
                                                 .FirstOrDefault();
+
+            if (cliente == null)
+            {
+                cliente = new Cliente(
+                            "",
+                            "",
+
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            "CLIENTE_NAO_ENCONTRADO"
+                            );
+            }
 
             return cliente;
         }

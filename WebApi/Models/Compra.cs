@@ -8,8 +8,11 @@ namespace WebApi.Models
     public class Compra
     {
 
+
+        private Int32 id_compra;
         private string cpf;
         private string nome;
+        private string email;
         private string cep;
         private string endereco;
         private string numero;
@@ -17,38 +20,41 @@ namespace WebApi.Models
         private string cidade;
         private string estado;
 
+
         private bool passagem;
         private string origem_passagem;
         private string destino_passagem;
-        private DateTime data_ida_passagem;
-        private DateTime data_volta_passagem;
+        private string data_ida_passagem;
+        private string data_volta_passagem;
         private Int32 qtd_passageiros_passagem;
         private decimal total_passagem;
 
         private bool hotel;
         private string cidade_hotel;
-        private DateTime data_entrada_hotel;
-        private DateTime data_saida_hotel;
+        private string data_entrada_hotel;
+        private string data_saida_hotel;
         private Int32 qtd_hospedes_hotel;
         private decimal total_hotel;
 
         private bool cruzeiro;
         private string origem_cruzeiro;
         private string destino_cruzeiro;
-        private DateTime data_inicio_cruzeiro;
-        private DateTime data_fim_cruzeiro;
+        private string data_inicio_cruzeiro;
+        private string data_fim_cruzeiro;
         private Int32 qtd_passageiros_cruzeiro;
         private decimal total_cruzeiro;
 
         private bool seguro;
-        private DateTime data_inicio_seguro;
-        private DateTime data_fim_seguro;
+        private string data_inicio_seguro;
+        private string data_fim_seguro;
         private decimal total_seguro;
 
         private decimal total;
         private bool pago;
-        private DateTime dt_compra;
- 
+        private string msg;
+
+
+
 
 
         public Compra()
@@ -56,45 +62,48 @@ namespace WebApi.Models
         }
 
         public Compra(
-            string cpf, string nome, string cep, string endereco, string numero, string bairro, string cidade, string estado,
+            Int32 id_compra, string cpf, string nome, string email,
+            string cep, string endereco, string numero, string bairro, string cidade, string estado,
             
             bool passagem,
             string origem_passagem,
             string destino_passagem,
-            DateTime data_ida_passagem,
-            DateTime data_volta_passagem,
+            string data_ida_passagem,
+            string data_volta_passagem,
             Int32 qtd_passageiros_passagem,
             decimal total_passagem,
             
             bool hotel,
             string cidade_hotel,
-            DateTime data_entrada_hotel,
-            DateTime data_saida_hotel,
+            string data_entrada_hotel,
+            string data_saida_hotel,
             Int32 qtd_hospedes_hotel,
             decimal total_hotel,
             
             bool cruzeiro,
             string origem_cruzeiro,
             string destino_cruzeiro,
-            DateTime data_inicio_cruzeiro,
-            DateTime data_fim_cruzeiro,
+            string data_inicio_cruzeiro,
+            string data_fim_cruzeiro,
             Int32  qtd_passageiros_cruzeiro,
             decimal total_cruzeiro,
             
             bool seguro,
-            DateTime data_inicio_seguro,
-            DateTime data_fim_seguro,
+            string data_inicio_seguro,
+            string data_fim_seguro,
             decimal total_seguro,
 
             decimal total,
             bool pago,
-            DateTime dt_compra
+            string msg
             
             )
         {
 
+            this.Id_compra = id_compra;
             this.Cpf = cpf;
             this.Nome = nome;
+            this.Email = email;
             this.Cep = cep;
             this.Endereco = endereco;
             this.Numero = numero;
@@ -132,9 +141,22 @@ namespace WebApi.Models
         
             this.Total = total;
             this.Pago = pago;
-            this.Dt_compra = dt_compra;
+            this.Msg = msg;
+            
         }
 
+        public Int32 Id_compra
+        {
+            get
+            {
+                return id_compra;
+            }
+
+            set
+            {
+                id_compra = value;
+            }
+        }
 
         public string Cpf
         {
@@ -159,6 +181,19 @@ namespace WebApi.Models
             set
             {
                 nome = value;
+            }
+        }
+
+        public string Email
+        {
+            get
+            {
+                return email;
+            }
+
+            set
+            {
+                email = value;
             }
         }
 
@@ -281,7 +316,7 @@ namespace WebApi.Models
             }
         }
 
-        public DateTime Data_ida_passagem
+        public string Data_ida_passagem
         {
             get
             {
@@ -294,7 +329,7 @@ namespace WebApi.Models
             }
         }
 
-        public DateTime Data_volta_passagem
+        public string Data_volta_passagem
         {
             get
             {
@@ -347,7 +382,7 @@ namespace WebApi.Models
             }
         }
 
-        public DateTime Data_entrada_hotel
+        public string Data_entrada_hotel
         {
             get
             {
@@ -360,7 +395,7 @@ namespace WebApi.Models
             }
         }
 
-        public DateTime Data_saida_hotel
+        public string Data_saida_hotel
         {
             get
             {
@@ -425,7 +460,7 @@ namespace WebApi.Models
             }
         }
 
-        public DateTime Data_inicio_cruzeiro
+        public string Data_inicio_cruzeiro
         {
             get
             {
@@ -439,7 +474,7 @@ namespace WebApi.Models
         }
 
 
-        public DateTime Data_fim_cruzeiro
+        public string Data_fim_cruzeiro
         {
             get
             {
@@ -478,7 +513,7 @@ namespace WebApi.Models
             }
         }
 
-        public DateTime Data_inicio_seguro
+        public string Data_inicio_seguro
         {
             get
             {
@@ -491,7 +526,7 @@ namespace WebApi.Models
             }
         }
 
-        public DateTime Data_fim_seguro
+        public string Data_fim_seguro
         {
             get
             {
@@ -584,19 +619,18 @@ namespace WebApi.Models
         }
 
 
-        public DateTime Dt_compra
+        public string Msg
         {
             get
             {
-                return dt_compra;
+                return msg;
             }
 
             set
             {
-                dt_compra = value;
+                msg = value;
             }
-        } 
-
+        }
 
     }
 }

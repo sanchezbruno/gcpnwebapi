@@ -42,6 +42,7 @@ namespace WebApi.Models
         private bool seguro;
         private string data_inicio_seguro;
         private string data_fim_seguro;
+        private string msg;
 
 
         public Reserva()
@@ -74,7 +75,8 @@ namespace WebApi.Models
             
             bool seguro,
             string data_inicio_seguro,
-            string data_fim_seguro
+            string data_fim_seguro,
+            string msg
             
             )
         {
@@ -105,7 +107,7 @@ namespace WebApi.Models
             this.Seguro = seguro;
             this.Data_inicio_seguro = data_inicio_seguro ;
             this.Data_fim_seguro = data_fim_seguro;
-        
+            this.Msg = msg;
 
         }
 
@@ -407,8 +409,20 @@ namespace WebApi.Models
 
                     data_fim_seguro = value;
             }
-        }  
-            
+        }
+
+        public string Msg
+        {
+            get
+            {
+                return msg;
+            }
+
+            set
+            {
+                msg = value;
+            }
+        }
 
 
     }

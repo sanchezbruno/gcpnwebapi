@@ -16,12 +16,13 @@ namespace WebApi.Models
         private string bairro;
         private string cidade;
         private string estado;
+        private string msg;
 
         public Cliente()
         {
         }
 
-        public Cliente(string cpf, string nome, string cep, string endereco, string numero, string bairro, string cidade, string estado)
+        public Cliente(string cpf, string nome, string cep, string endereco, string numero, string bairro, string cidade, string estado, string msg)
         {
             this.Cpf = cpf;
             this.Nome = nome;
@@ -31,6 +32,7 @@ namespace WebApi.Models
             this.Bairro = bairro;
             this.Cidade = cidade;
             this.Estado = estado;
+            this.Msg = msg;
         }
 
         public string Cpf
@@ -134,6 +136,19 @@ namespace WebApi.Models
             set
             {
                 estado = value;
+            }
+        }
+
+        public string Msg
+        {
+            get
+            {
+                return msg;
+            }
+
+            set
+            {
+                msg = value;
             }
         }
     }

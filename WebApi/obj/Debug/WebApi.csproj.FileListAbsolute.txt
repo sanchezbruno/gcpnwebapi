@@ -182,6 +182,10 @@ D:\Google Drive\Git\GCPNWebApi\WebApi\bin\Microsoft.Owin.Security.Google.xml
 D:\Google Drive\Git\GCPNWebApi\WebApi\bin\Microsoft.Owin.Security.Twitter.xml
 D:\Google Drive\Git\GCPNWebApi\WebApi\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 D:\Google Drive\Git\GCPNWebApi\WebApi\bin\System.Web.Http.Owin.xml
-D:\Google Drive\Git\GCPNWebApi\WebApi\obj\Debug\WebApi.csprojResolveAssemblyReference.cache
 D:\Google Drive\Git\GCPNWebApi\WebApi\obj\Debug\WebApi.dll
 D:\Google Drive\Git\GCPNWebApi\WebApi\obj\Debug\WebApi.pdb
+D:\Google Drive\Git\GCPNWebApi\WebApi\bin\BouncyCastle.Crypto.dll
+D:\Google Drive\Git\GCPNWebApi\WebApi\bin\MailKit.dll
+D:\Google Drive\Git\GCPNWebApi\WebApi\bin\MimeKit.dll
+D:\Google Drive\Git\GCPNWebApi\WebApi\bin\MailKit.xml
+D:\Google Drive\Git\GCPNWebApi\WebApi\bin\MimeKit.xml

@@ -29,7 +29,7 @@ namespace WebApi.Controllers
 
         [AcceptVerbs("POST")]
         [Route("CadastrarReserva")]
-        public string CadastrarReserva(Reserva reserva)
+        public Reserva CadastrarReserva(Reserva reserva)
         {
             string erro = "";
             //listaReservas.Add(reserva);
@@ -176,7 +176,7 @@ namespace WebApi.Controllers
                         connection.Open();
                         command.ExecuteNonQuery();
 
-                        return "Reserva cadastrada com sucesso!" ;
+                        return reserva;
                     }
                 }
 
@@ -185,7 +185,41 @@ namespace WebApi.Controllers
             }
             catch (Exception ex)
             {
-                return erro + "" + ex.Message;
+
+                reserva = new Reserva(
+                            "",
+                            "",
+                            false,
+
+                            "",
+                            "",
+                            "",
+                            "",
+                            0,
+
+                            false,
+                            "",
+                            "",
+                            "",
+                            0,
+
+                            false,
+                            "",
+                            "",
+                            "",
+                            "",
+                            0,
+
+                            false,
+                            "",
+                            "",
+
+                           erro + " " + ex.Message
+                            );
+
+
+
+                return reserva;
             }
 
 
@@ -216,6 +250,41 @@ namespace WebApi.Controllers
             Reserva reserva = listaReservas.Where(n => n.Cpf == cpf)
                                                 .Select(n => n)
                                                 .FirstOrDefault();
+
+
+            if (reserva == null)
+            {
+                reserva = new Reserva(
+                            "",
+                            "",
+                            false,
+
+                            "",
+                            "",
+                            "",
+                            "",
+                            0,
+
+                            false,
+                            "",
+                            "",
+                            "",
+                            0,
+
+                            false,
+                            "",
+                            "",
+                            "",
+                            "",
+                            0,
+
+                            false,
+                            "",
+                            "",
+
+                            "RESERVA_NAO_ENCONTRADA"
+                            );
+            }
 
             return reserva;
         }
@@ -322,7 +391,8 @@ namespace WebApi.Controllers
 
                            Convert.ToBoolean(item["SEGURO"].ToString()),
                            item["INICIO_SEGURO"].ToString(),
-                           item["FIM_SEGURO"].ToString()
+                           item["FIM_SEGURO"].ToString(),
+                           ""
 
                             );
                         listaReservas.Add(reserva);
@@ -340,7 +410,7 @@ namespace WebApi.Controllers
 
         [AcceptVerbs("GET")]
         [Route("ExcluirReservaPorCPF/{cpf}")]
-        public string ExcluirReservaPorCpf(string cpf)
+        public Reserva ExcluirReservaPorCpf(string cpf)
         {
 
             string erro = "";
@@ -370,7 +440,38 @@ namespace WebApi.Controllers
                         listaReservas.Clear();
                         listaReservasCarrega();
 
-                        return "Reserva excluída com sucesso!";
+                        Reserva reserva = new Reserva(
+                           "",
+                           "",
+                           false,
+
+                           "",
+                           "",
+                           "",
+                           "",
+                           0,
+
+                           false,
+                           "",
+                           "",
+                           "",
+                           0,
+
+                           false,
+                           "",
+                           "",
+                           "",
+                           "",
+                           0,
+
+                           false,
+                           "",
+                           "",
+
+                           "Reserva excluída com sucesso!"
+                           );
+
+                        return reserva;
                     }
                 }
 
@@ -382,7 +483,39 @@ namespace WebApi.Controllers
                 listaReservas.Clear();
                 listaReservasCarrega();
 
-                return erro + "" + ex.Message;
+                Reserva reservaerro = new Reserva(
+                           "",
+                           "",
+                           false,
+
+                           "",
+                           "",
+                           "",
+                           "",
+                           0,
+
+                           false,
+                           "",
+                           "",
+                           "",
+                           0,
+
+                           false,
+                           "",
+                           "",
+                           "",
+                           "",
+                           0,
+
+                           false,
+                           "",
+                           "",
+
+                           erro + "" + ex.Message
+                           );
+
+                return reservaerro;
+                
             }
 
 
